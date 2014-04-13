@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource
+		name="jdbc/resStore"
+		auth="Container"
+		type="javax.sql.DataSource"
+		driverClassName="oracle.jdbc.OracleDriver"
+		url="jdbc:oracle:thin:@212.152.179.117:1521:ora11g"
+		username="d5b24"
+		password="d5b24"
+		maxActive="20"
+		maxIdle="30"
+		maxWait="-1"
+	/>
+	
+	<!-- 212.152.179.117 -->
+	<!-- 192.168.128.151 -->
+	
+	<!-- user=bcuser
+		password=minisap
+		ip=172.16.127.136
+		mandant=000
+		language=en
+		systemNumber=00 -->
+	
+	<Parameter name="user" value="bcuser" override="false"/>
+	<Parameter name="password" value="minisap" override="false"/>
+	<Parameter name="ip" value="172.16.127.136" override="false"/>
+	<Parameter name="mandant" value="000" override="false"/>
+	<Parameter name="language" value="en" override="false"/>
+	<Parameter name="systemNumber" value="00" override="false"/>
+</Context>
