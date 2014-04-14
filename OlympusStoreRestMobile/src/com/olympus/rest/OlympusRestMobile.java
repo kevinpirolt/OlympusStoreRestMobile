@@ -1,5 +1,6 @@
 package com.olympus.rest;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -18,6 +19,7 @@ import com.olympus.rest.oracle.Database;
 import com.olympus.rest.sap.SAPProductModel;
 import com.olympus.rest.util.Product;
 import com.olympus.rest.util.ProductList;
+import com.olympus.rest.util.RetBool;
 import com.olympus.rest.util.User;
 import com.sun.istack.internal.logging.Logger;
 
@@ -125,7 +127,7 @@ public class OlympusRestMobile {
 	@GET
 	@Path("getuser/{name}")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.TEXT_HTML })
-	public User getUser(@PathParam(value = "name") String name) {
+	public User getUser(@PathParam("name") String name) {
 		User u = null;
 		initDB();
 		u = this.db.getUser(name);
@@ -135,6 +137,38 @@ public class OlympusRestMobile {
 	private void initDB() {
 		if(this.db == null)
 			this.db = new Database();
+	}
+	
+	@GET
+	@Path("ispasswordcorrect/{name} {password}")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML, MediaType.TEXT_HTML })
+	public RetBool isPasswordCorrect(@PathParam("name") String name, @PathParam("password") String password) {
+		RetBool isCorrect = new RetBool(false);
+		initDB();
+		try {
+			boolean isc = this.db.isPasswordCorrect(name, password);
+			isCorrect.setValue(isc);
+		} catch (SQLException e) {
+			isCorrect.setValue(false);
+			e.printStackTrace();
+		}
+		return isCorrect;
+	}
+	
+	@POST
+	@Path("createuser")
+	@Consumes({MediaType.TEXT_HTML, MediaType.TEXT_XML})
+	public String createUser(User user) {
+		String outcome = "ERROR600_Could not establish a connection to database";
+		initDB();
+		try {
+			outcome = this.db.createUser(user.getName(), user.getAddress(), user.getPicture(),
+					user.getBirthdate(), user.getEmail(), user.getPassword());
+		} catch (SQLException e) {
+			outcome = "ERROR500_Could not insert User in database: " + e.getMessage();
+			e.printStackTrace();
+		}
+		return outcome;
 	}
 	
 	

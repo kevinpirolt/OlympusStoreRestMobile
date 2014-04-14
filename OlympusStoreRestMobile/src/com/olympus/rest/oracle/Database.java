@@ -89,7 +89,7 @@ public class Database implements Serializable
 		return ret;
 	}
 
-	public void createUser(String username, String adress, String url,String birthdate,String email,String pw ) throws SQLException
+	public String createUser(String username, String adress, String url,String birthdate,String email,String pw ) throws SQLException
 	{
 		this.Connect();
 		PreparedStatement stmt=conn.prepareStatement("insert into users values(seq_users.NEXTVAL,?,?,?,to_date(?,'YYYY/MM/DD'),?,?,?)");
@@ -105,8 +105,9 @@ public class Database implements Serializable
 
 		stmt.executeUpdate();
 		
-		
 		this.CloseConnection();
+		
+		return "New User inserted";
 	}
 
 	public void insertCartAndCartItems(ArrayList<CartItem> items) {
