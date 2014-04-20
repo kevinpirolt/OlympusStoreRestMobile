@@ -162,7 +162,7 @@ public class OlympusRestMobile {
 		String outcome = "ERROR600_Could not establish a connection to database";
 		initDB();
 		try {
-			outcome = this.db.createUser(user.getName(), user.getAddress(), user.getPicture(),
+			this.db.createUser(user.getName(), user.getAddress(), user.getPicture(),
 					user.getBirthdate(), user.getEmail(), user.getPassword());
 		} catch (SQLException e) {
 			outcome = "ERROR500_Could not insert User in database: " + e.getMessage();

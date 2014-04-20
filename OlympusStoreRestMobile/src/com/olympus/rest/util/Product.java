@@ -1,12 +1,18 @@
 package com.olympus.rest.util;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Product {
+public class Product implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private float price;
@@ -94,7 +100,7 @@ public class Product {
 	}
 
 	public String getImage() {
-		return image;
+		return image.toLowerCase();
 	}
 
 	public void setId(int id) {
@@ -143,5 +149,24 @@ public class Product {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public String getReleaseDateFormated() {
+		SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy");
+		return sdf.format(releaseDate);
+	}
+	
+	public String getShowProductSite() {
+		String link = "./product" + this.type + ".jsf?id=" + this.id;
+		return link.toLowerCase();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		boolean equal = false;
+		if(obj instanceof Product)
+			if(((Product)obj).getId() == this.id)
+				equal = true;
+		return equal;
 	}
 }

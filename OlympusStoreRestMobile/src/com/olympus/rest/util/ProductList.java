@@ -13,6 +13,8 @@ public class ProductList implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Product> products;
 
+	public ProductList() {}
+	
 	public ArrayList<Product> getProducts() {
 		return products;
 	}

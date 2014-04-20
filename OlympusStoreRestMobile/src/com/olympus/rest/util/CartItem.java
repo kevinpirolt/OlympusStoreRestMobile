@@ -1,12 +1,16 @@
 package com.olympus.rest.util;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class CartItem {
+public class CartItem implements Serializable{
 	
 	private Product item;
 	private int quantety;
+	
+	public CartItem(){}
 	
 	public CartItem(Product item) {
 		super();
